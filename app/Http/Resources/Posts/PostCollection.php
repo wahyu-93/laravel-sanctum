@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Posts;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Str;
 
 class PostCollection extends ResourceCollection
 {
@@ -20,7 +21,7 @@ class PostCollection extends ResourceCollection
                     'id'   => $post->id,
                     'slug' => $post->slug,
                     'name' => $post->name,
-                    'body' => $post->body,
+                    'body' => Str::limit($post->body),
                     'author' => $post->user->name,
                     'subject' => $post->subject
                 ];

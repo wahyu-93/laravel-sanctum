@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Posts\PostController;
+use App\Http\Controllers\Subject\SubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::prefix('posts')->group(function() {
         Route::get('', [PostController::class, 'index'])->withoutMiddleware('auth:sanctum');
+        Route::get('{post:slug}', [PostController::class, 'show'])->withoutMiddleware('auth:sanctum');
+        Route::get('subjects/{subject:slug}', [SubjectController::class, 'show'])->withoutMiddleware('auth:sanctum');
     });
 });

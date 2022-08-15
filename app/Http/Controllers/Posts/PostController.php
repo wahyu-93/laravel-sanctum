@@ -16,4 +16,9 @@ class PostController extends Controller
         // return PostResource::collection($posts);
         return new PostCollection($posts);
     }
+
+    public function show(Post $post)
+    {
+        return new PostResource($post);
+    }
 }
