@@ -25,7 +25,9 @@ class PostCollection extends ResourceCollection
                     'author' => $post->user->name,
                     'subject' => $post->subject
                 ];
-            })
+            }),
+
+            'hasMorePages' => $this->hasMorePages()
         ];
     }
 }

@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('user','subject')->latest()->paginate(10);
+        $posts = Post::with('user','subject')->latest()->paginate(request('perPage'));
         // return PostResource::collection($posts);
         return new PostCollection($posts);
     }
