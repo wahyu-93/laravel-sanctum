@@ -11,6 +11,8 @@ class SubjectController extends Controller
 {
     public function show(Subject $subject)
     {
-        return new PostCollection($subject->posts);
+        // dd($subject);
+        $posts = $subject->posts()->latest()->paginate(request('perPage'));
+        return (new PostCollection($posts))->additional(['subject' => $subject]);
     }
 }
