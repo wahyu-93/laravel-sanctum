@@ -45,4 +45,33 @@ class PostController extends Controller
             'message' => 'post was created'
         ]);
     }
+
+    public function edit(Post $post)
+    {
+        request()->validate([
+            'name' => 'required|min:6',
+            'body' => 'required',
+            'subject' => 'required'
+        ]);
+
+        $post->update([
+            'name' => request('name'),
+            'body' => request('body'),
+            'subject_id' => request('subject')
+        ]);
+
+        return response()->json([
+            'data'  => $post,
+            'message' => 'post was Edited'
+        ]);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return response()->json([
+            'message' => 'post was deleted'
+        ]);
+    }
 }

@@ -22,7 +22,11 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::prefix('posts')->group(function() {
         Route::get('', [PostController::class, 'index'])->withoutMiddleware('auth:sanctum');
-        Route::post('create', [PostController::class, 'store'])->withoutMiddleware('auth:sanctum');
+
+        Route::post('create', [PostController::class, 'store']);
+        Route::patch('{post:slug}/edit', [PostController::class, 'edit']);
+        Route::delete('{post:slug}/delete', [PostController::class, 'destroy']);
+        
         Route::get('subjects/{subject:slug}', [SubjectController::class, 'show'])->withoutMiddleware('auth:sanctum');
         Route::get('{subject:slug}/{post:slug}', [PostController::class, 'show'])->withoutMiddleware('auth:sanctum');
     });
