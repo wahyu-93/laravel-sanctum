@@ -7,6 +7,7 @@ use App\Http\Resources\Posts\PostCollection;
 use App\Http\Resources\Posts\PostResource;
 use App\Models\Post;
 use App\Models\Subject;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -20,5 +21,28 @@ class PostController extends Controller
     public function show(Subject $subject, Post $post)
     {
         return new PostResource($post);
+    }
+
+    public function store()
+    {
+        auth()->loginUsingId(1);    
+        
+        request()->validate([
+            'name' => 'required|min:6',
+            'body' => 'required',
+            'subject' => 'required'
+        ]);
+
+        $post = auth()->user()->posts()->create([
+            'name' => request('name'),
+            'slug' => Str::slug(request('name')) . '-' . Str::random(6),
+            'body' => request('body'),
+            'subject_id' => request('subject')
+        ]);
+
+        return response()->json([
+            'data'  => $post,
+            'message' => 'post was created'
+        ]);
     }
 }
