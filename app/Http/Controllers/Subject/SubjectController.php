@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+    public function index()
+    {
+        return Subject::get(['id', 'name']);
+    }
+    
     public function show(Subject $subject)
     {
         // dd($subject);
